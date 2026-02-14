@@ -405,42 +405,136 @@ document.addEventListener("DOMContentLoaded", () => {
     newDiv.style.left = `${randomWidth}px`
   }
 
-
   // Задачка 18
 
   let t18Area = document.querySelector('[data-js="t18-area"]')
   
   let t18AreaInfo = t18Area.getBoundingClientRect()
-  let t18AreaHeight = t18AreaInfo.height
   let t18AreaWidth = t18AreaInfo.width
+  
+  setInterval(createDiv18, 1000)
 
-  setInterval(createDivAndMove, 1000)
-
-  function createDivAndMove() {
+  function createDiv18() {
     let newDiv18 = document.createElement('div');
     newDiv18.className = 'box';
     t18Area.append(newDiv18);
     newDiv18.style.position = 'absolute'
-    let randomHeight = getRandomInt(t18AreaHeight - 49)
-    newDiv18.style.top = `${randomHeight}px`
     newDiv18.style.left = `${t18AreaWidth}px`
-    let newDiv18left = newDiv18.getBoundingClientRect().width
-    // requestAnimationFrame(animateDiv(newDiv18))
     requestAnimationFrame(() => animateDiv(newDiv18))
   }
-  function test(params) {
-    
+
+  // Задачка 19
+
+  let t19Area = document.querySelector('[data-js="t19-area"]')
+  
+  let t19AreaInfo = t19Area.getBoundingClientRect()
+  let t19AreaHeight = t19AreaInfo.height
+  let t19AreaWidth = t19AreaInfo.width
+
+  setInterval(createDivAndMove, 1000)
+
+  function createDivAndMove() {
+    let newDiv19 = document.createElement('div');
+    newDiv19.className = 'box';
+    t19Area.append(newDiv19);
+    newDiv19.style.position = 'absolute'
+    let randomHeight = getRandomInt(t19AreaHeight - 49)
+    newDiv19.style.top = `${randomHeight}px`
+    newDiv19.style.left = `${t19AreaWidth}px`
+    requestAnimationFrame(() => animateDiv(newDiv19))
   }
-  function animateDiv(newDiv18) {
-    let currentLeft = newDiv18.getBoundingClientRect().left
-    let nextLeft = 1;
-    console.log(currentLeft, nextLeft)
-    newDiv18.style.left = `${Math.floor(currentLeft - nextLeft)}px`
-    // if (newDiv18.getBoundingClientRect().left - 100 < 0) {
-    //   remove(newDiv18)
-    //   return
-    // }
-    // else {
-    // }
+  function animateDiv(newDiv19) {
+    let currentLeft = parseInt(newDiv19.style.left)
+    let nextLeft = currentLeft - 1;
+    newDiv19.style.left = `${nextLeft}px`
+    if (nextLeft + newDiv19.offsetWidth <= 0) {
+      newDiv19.remove()
+      return
+    }
+
+    requestAnimationFrame(() => animateDiv(newDiv19))
+  }
+
+  // Задачка 20
+
+  let t20Area = document.querySelector('[data-js="t20-area"]')
+  let t20Score = document.querySelector('[data-js="t20-score"]')
+
+  let score = 0;
+
+  let t20AreaInfo = t20Area.getBoundingClientRect()
+  let t20AreaWidth = t20AreaInfo.width
+  let t20AreaHeight = t20AreaInfo.height
+
+  setInterval(createDiv20, 1000)
+
+  function createDiv20() {
+    let newDiv20 = document.createElement('div');
+    newDiv20.className = 'box';
+    t20Area.append(newDiv20);
+    newDiv20.style.position = 'absolute'
+    let randomHeight = getRandomInt(t20AreaHeight - 49)
+    newDiv20.style.top = `${randomHeight}px`
+    newDiv20.style.left = `${t20AreaWidth}px`
+    newDiv20.addEventListener('click', () => {
+      score++;
+      t20Score.textContent = score;
+      newDiv20.remove()
+    })
+    requestAnimationFrame(() => animateDiv(newDiv20))
+  }
+
+  // Задачка 21
+  
+  let t21Area = document.querySelector('[data-js="t21-area"]')
+  let t21Score = document.querySelector('[data-js="t21-score"]')
+  let t21Lives = document.querySelector('[data-js="t21-lives"]')
+
+  let score21 = 0;
+  let lives21 = 3;
+
+  let t21AreaInfo = t21Area.getBoundingClientRect()
+  let t21AreaWidth = t21AreaInfo.width
+  let t21AreaHeight = t21AreaInfo.height
+
+  setInterval(createDiv21, 1000)
+
+  function createDiv21() {
+    let newDiv21 = document.createElement('div');
+    newDiv21.className = 'box';
+    t21Area.append(newDiv21);
+    newDiv21.style.position = 'absolute'
+    let randomHeight = getRandomInt(t21AreaHeight - 49)
+    newDiv21.style.top = `${randomHeight}px`
+    newDiv21.style.left = `${t21AreaWidth}px`
+    newDiv21.addEventListener('click', () => {
+      score21++;
+      t21Score.textContent = score21;
+      newDiv21.remove()
+      console.log(lives21)
+    })
+    
+    if (lives21 <= 0) {
+      alert("Game over")
+      score21 = 0;
+      lives21 = 3;
+      t21Score.textContent = score21;
+      t21Lives.textContent = lives21;
+    }
+    requestAnimationFrame(() => animateDiv21(newDiv21))
+
+    function animateDiv21(newDiv21) {
+      let currentLeft = parseInt(newDiv21.style.left)
+      let nextLeft = currentLeft - 1;
+      newDiv21.style.left = `${nextLeft}px`
+      if (parseInt(newDiv21.style.left) <= 0) {
+        newDiv21.remove()
+        lives21--;
+        t21Lives.textContent = lives21;
+        return
+      }
+        
+      requestAnimationFrame(() => animateDiv21(newDiv21))
+    }
   }
 });
