@@ -384,4 +384,63 @@ document.addEventListener("DOMContentLoaded", () => {
       if (timeFraction < 1) requestAnimationFrame(frame)
     })
   }
+
+  // Задачка 17
+  let t17Area = document.querySelector('[data-js="t17-area"]')
+  
+
+  let t17AreaInfo = t17Area.getBoundingClientRect()
+  let t17AreaWidth = t17AreaInfo.width
+  let t17AreaHeight = t17AreaInfo.height
+
+  setInterval(createDiv, 1000)
+  function createDiv() {
+    let newDiv = document.createElement('div');
+    newDiv.className = 'box';
+    t17Area.append(newDiv);
+    newDiv.style.position = 'absolute'
+    let randomWidth = getRandomInt(t17AreaWidth - 49)
+    let randomHeight = getRandomInt(t17AreaHeight - 49)
+    newDiv.style.top = `${randomHeight}px`
+    newDiv.style.left = `${randomWidth}px`
+  }
+
+
+  // Задачка 18
+
+  let t18Area = document.querySelector('[data-js="t18-area"]')
+  
+  let t18AreaInfo = t18Area.getBoundingClientRect()
+  let t18AreaHeight = t18AreaInfo.height
+  let t18AreaWidth = t18AreaInfo.width
+
+  setInterval(createDivAndMove, 1000)
+
+  function createDivAndMove() {
+    let newDiv18 = document.createElement('div');
+    newDiv18.className = 'box';
+    t18Area.append(newDiv18);
+    newDiv18.style.position = 'absolute'
+    let randomHeight = getRandomInt(t18AreaHeight - 49)
+    newDiv18.style.top = `${randomHeight}px`
+    newDiv18.style.left = `${t18AreaWidth}px`
+    let newDiv18left = newDiv18.getBoundingClientRect().width
+    // requestAnimationFrame(animateDiv(newDiv18))
+    requestAnimationFrame(() => animateDiv(newDiv18))
+  }
+  function test(params) {
+    
+  }
+  function animateDiv(newDiv18) {
+    let currentLeft = newDiv18.getBoundingClientRect().left
+    let nextLeft = 1;
+    console.log(currentLeft, nextLeft)
+    newDiv18.style.left = `${Math.floor(currentLeft - nextLeft)}px`
+    // if (newDiv18.getBoundingClientRect().left - 100 < 0) {
+    //   remove(newDiv18)
+    //   return
+    // }
+    // else {
+    // }
+  }
 });
